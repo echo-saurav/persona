@@ -2,9 +2,15 @@ from src.app.config import Config
 from src.background.background_process import BackgroundProcess
 from src.context import Context, ContextManager
 import time
+import os
+from dotenv import load_dotenv
 from src.databaseHelper.sql_db import UserProfileDatabase
 
 background_process = BackgroundProcess()
+
+load_dotenv()
+profiling_interval = os.getenv(key='BACKGROUND_PROFILING_INTERVAL', default=200)
+summery_interval = os.getenv(key='BACKGROUND_SUMMERY_INTERVAL', default=200)
 
 
 def add_background_tasks(all_messages, config: Config, api_key: str):
@@ -15,7 +21,7 @@ def add_background_tasks(all_messages, config: Config, api_key: str):
     background_process.debounce_run(
         job_id=summery_job_id,
         function=_background_summarizer,
-        second_after=30,
+        second_after=summery_interval,
         # functions args
         config=config,
         context=context,
@@ -26,7 +32,7 @@ def add_background_tasks(all_messages, config: Config, api_key: str):
     background_process.debounce_run(
         job_id=profile_job_id,
         function=_background_profiling,
-        second_after=10,
+        second_after=profiling_interval,
         # functions args
         config=config,
         context=context,

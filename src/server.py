@@ -5,7 +5,6 @@ import os
 load_dotenv()
 PORT = os.getenv(key='PORT', default=3000)
 configs_dir = os.getenv(key='CONFIGS_DIR', default="configs")
-background_seconds = os.getenv(key='BACKGROUND_SECOND', default=200)
 
 app = create_app(configs_dir)
 
