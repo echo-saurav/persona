@@ -1,0 +1,118 @@
+{
+  "model_name": "Dev",
+  "description": "Model for testing",
+  "template_function_path": "TemplateFunctions.py",
+  "embedding_model": {
+    "name": "nomic",
+    "api_type": "ollama",
+    "model_type": "embedding",
+    "base_url": "http://192.168.0.120:11434",
+    "api_key": "",
+    "model_id": "nomic-embed-text:latest"
+  },
+  "vector_database": {
+    "type": "qdrant",
+    "host": "192.168.0.120",
+    "port": 6333,
+    "collection_name": "Dev",
+    "score_threshold": 0.7,
+    "default_limit": 10
+  },
+  "models": [
+    {
+      "name": "routing",
+      "api_type": "openai",
+      "model_type": "completion",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "$GROQ_API",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct"
+    },
+    {
+      "name": "basic",
+      "api_type": "openai",
+      "model_type": "completion",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "$GROQ_API",
+      "model_id": "openai/gpt-oss-20b"
+    },
+    {
+      "name": "long_context",
+      "api_type": "openai",
+      "model_type": "completion",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "$GROQ_API",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct"
+    },
+    {
+      "name": "medium",
+      "api_type": "openai",
+      "model_type": "completion",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "$GROQ_API",
+      "model_id": "openai/gpt-oss-120b"
+    },
+    {
+      "name": "high_intelligent",
+      "api_type": "openai",
+      "model_type": "completion",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "$GROQ_API",
+      "model_id": "moonshotai/kimi-k2-instruct-0905"
+    }
+  ],
+  "routes": {
+    "prompt": {
+      "name": "route",
+      "file_name": "routing_prompt.md",
+      "model": "routing"
+    },
+    "routed_prompts": [
+      {
+        "name": "basic",
+        "file_name": "routes/basic.md",
+        "model": "basic"
+      },
+      {
+        "name": "coding",
+        "file_name": "routes/coding.md",
+        "model": "medium"
+      },
+      {
+        "name": "contextual",
+        "file_name": "routes/contextual.md",
+        "model": "long_context"
+      },
+      {
+        "name": "learning",
+        "file_name": "routes/learning.md",
+        "model": "medium"
+      },
+      {
+        "name": "analytical",
+        "file_name": "routes/analytical.md",
+        "model": "high_intelligent"
+      }
+    ]
+  },
+  "default_system_prompt": {
+    "name": "route",
+    "file_name": "default_system_prompt.md",
+    "model": "basic"
+  },
+  "context_summariser": {
+    "name": "summery",
+    "file_name": "context_summariser.md",
+    "model": "long_context"
+  },
+  "chat_summariser": {
+    "name": "chat_summariser",
+    "file_name": "chat_summariser.md",
+    "model": "long_context"
+  },
+  "user_profiling": {
+    "name": "user_profiling",
+    "file_name": "user_profiling.md",
+    "model": "high_intelligent"
+  }
+}
+

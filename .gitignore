@@ -1,0 +1,8 @@
+.venv
+.env
+.idea
+database
+.DS_Store
+__pycache__
+# test code
+test

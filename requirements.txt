@@ -1,0 +1,9 @@
+Flask
+flask-cors
+python-dotenv
+ollama
+qdrant-client
+openai
+requests
+Jinja2
+APScheduler
