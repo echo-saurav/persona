@@ -9,8 +9,8 @@ from src.databaseHelper.sql_db import UserProfileDatabase
 background_process = BackgroundProcess()
 
 load_dotenv()
-profiling_interval = os.getenv(key='BACKGROUND_PROFILING_INTERVAL', default=200)
-summery_interval = os.getenv(key='BACKGROUND_SUMMERY_INTERVAL', default=200)
+profiling_interval = int(os.getenv(key='BACKGROUND_PROFILING_INTERVAL', default=200))
+summery_interval = int(os.getenv(key='BACKGROUND_SUMMERY_INTERVAL', default=200))
 
 
 def add_background_tasks(all_messages, config: Config, api_key: str):
